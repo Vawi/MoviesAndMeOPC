@@ -4,6 +4,7 @@ import { getFilmDetailFromApi, getImageFromApi } from '../API/TMDBApi'
 import { ScrollView } from 'react-native-gesture-handler';
 import moment from 'moment';
 import numeral from 'numeral';
+import { connect } from 'react-redux'
  
 
 class FilmDetail extends React.Component {
@@ -121,4 +122,11 @@ const styles = StyleSheet.create({
     }
 })
 
+const mapStateToProps = (state) => {
+    return {
+        favoritesFilm: state.favoritesFilm
+    }
+}
+
 export default FilmDetail
+export default connect(mapStateToProps)(FilmDetail)
