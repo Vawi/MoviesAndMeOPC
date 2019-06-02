@@ -88,6 +88,11 @@ class FilmItem extends React.Component {
     date_text: {
       textAlign: 'right',
       fontSize: 14
+    },
+    favorite_image: {
+      width: 25,
+      height: 25,
+      marginRight: 5
     }
   })
   
