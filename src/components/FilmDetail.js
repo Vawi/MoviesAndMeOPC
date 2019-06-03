@@ -4,6 +4,7 @@ import { getFilmDetailFromApi, getImageFromApi } from '../API/TMDBApi'
 import moment from 'moment'
 import numeral from 'numeral'
 import { connect } from 'react-redux'
+import EnlargeShrink from '../animations/EnlargeShrink';
 
 class FilmDetail extends React.Component {
 
@@ -28,6 +29,7 @@ class FilmDetail extends React.Component {
       film: undefined,
       isLoading: true
     }
+    this._toggleFavorite = this._toggleFavorite.bind(this)
     this._shareFilm = this._shareFilm.bind(this)
   }
 
@@ -85,15 +87,19 @@ class FilmDetail extends React.Component {
 
   _displayFavoriteImage() {
     var sourceImage = require('../image/ic_favorite_border.png')
+    var shouldEnlarge = false 
     if (this.props.favoritesFilm.findIndex(item => item.id === this.state.film.id) !== -1) {
       // Film dans nos favoris
       sourceImage = require('../image/ic_favorite.png')
+      shouldEnlarge = true
     }
     return (
-      <Image
+      <EnlargeShrink shouldEnlarge={shouldEnlarge}>
+        <Image
         style={styles.favorite_image}
         source={sourceImage}
       />
+      </EnlargeShrink>
     )
   }
 
