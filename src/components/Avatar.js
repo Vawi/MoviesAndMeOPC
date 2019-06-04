@@ -1,17 +1,28 @@
 import React from 'react'
 import { StyleSheet, Image, TouchableOpacity } from 'react-native'
+import ImagePicker from 'react-native-image-picker'
+import { connect } from 'react-redux'
 
 class Avatar extends React.Component {
 
     constructor(props){
         super(props)
-        this.state = {
-            avatar: require('../image/ic_tag_faces.png')
-        }
+        this._avatarClicked = this._avatarClicked.bind(this)
     }
 
     _avatarClicked() {
-
+        ImagePicker.showImagePicker({}, (response) => {
+            if(response.didCancel) {
+                console.log('L\'utilisateur a annulé')
+            } else if (response.error) {
+                console.log('Erreur : ', response.error)
+            } else {
+                console.log('Photo : ', response.uri)
+                let requireSource = { uri : response.uri }
+                const action = { type: "SET_AVATAR", value: requireSource}
+                this.props.dispatch(action) 
+            }
+        })
     }
 
     render() {
@@ -43,4 +54,10 @@ const styles = StyleSheet.create({
        }
 })
 
-export default Avatar
+const mapStateToProps = state => {
+    return {
+        avatar: state.setAvatar.avatar
+    }
+}
+
+export default connect(mapStateToProps)(Avatar)
