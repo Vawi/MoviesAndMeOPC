@@ -1,5 +1,6 @@
 import { createStore } from 'redux'
 import toggleFavorite from './reducers/favoriteReducer'
+import toggleView from './reducers/viewReducer'
 import setAvatar from './reducers/avatarReducer'
 import { persistCombineReducers } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
@@ -10,4 +11,4 @@ const rootPersistConfig = {
 }
 
 export default createStore(persistCombineReducers(rootPersistConfig,
-    {toggleFavorite, setAvatar}))
+    {toggleFavorite, toggleView, setAvatar}))

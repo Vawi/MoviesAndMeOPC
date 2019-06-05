@@ -4,6 +4,8 @@ import React from 'react'
 import Search from '../components/Search'
 import FilmDetail from '../components/FilmDetail'
 import Favorites from '../components/Favorites'
+import News from '../components/News'
+import Views from '../components/Views'
 
 const SearchStackNavigator = createStackNavigator({
     Search: {
@@ -16,6 +18,18 @@ const SearchStackNavigator = createStackNavigator({
       screen: FilmDetail
     }
   })
+
+const ViewsStackNavigator = createStackNavigator({
+  Views: {
+    screen: Views,
+    navigationOptions: {
+      title: 'Film vus',
+    },
+  },
+  FilmDetail: {
+    screen: FilmDetail
+  }
+})
 
 const NewsStackNavigator = createStackNavigator({
   News: {
@@ -60,6 +74,16 @@ const MoviesTabNavigator = createBottomTabNavigator(
           return <Image
             source={require('../image/ic_favorite.png')}
             style={styles.icon}/>
+        }
+      }
+    },
+    Views: {
+      screen: ViewsStackNavigator,
+      navigationOptions: {
+        tabBarIcon: () =>  {
+          return <Image
+            source={require('../image/ic_check.png')}
+            style={styles.icon}/> 
         }
       }
     },
