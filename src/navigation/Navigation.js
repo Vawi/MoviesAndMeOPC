@@ -17,6 +17,18 @@ const SearchStackNavigator = createStackNavigator({
     }
   })
 
+const NewsStackNavigator = createStackNavigator({
+  News: {
+    screen: News,
+    navigationOptions: {
+      title: 'Les derniers Films',
+    },
+  },
+  FilmDetail: {
+    screen: FilmDetail
+  }
+})
+
 const FavoritesStackNavigator = createStackNavigator({
   Favorites: {
     screen: Favorites,
@@ -50,6 +62,16 @@ const MoviesTabNavigator = createBottomTabNavigator(
             style={styles.icon}/>
         }
       }
+    },
+    News: {
+      screen: NewsStackNavigator,
+      navigationOptions:{
+        tabBarIcon: () => {
+          return <Image
+            source={require('../image/ic_fiber_new.png')}
+            style={styles.icon}/> 
+        }
+      } 
     }
   },
   {
