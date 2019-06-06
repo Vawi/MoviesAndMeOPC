@@ -50,6 +50,11 @@ class FilmDetail extends React.Component {
         film: this.props.favoritesFilm[favoriteFilmIndex]
       }, () => { this._updateNavigationParams() })
       return
+    } else if (viewFilmIndex !== -1) {
+      this.setState({
+        film: this.props.viewsFilm[viewFilmIndex]
+      }, () => { this._updateNavigationParams() })
+      return
     }
     this.setState({ isLoading: true })
     getFilmDetailFromApi(this.props.navigation.state.params.idFilm).then(data => {
@@ -78,6 +83,18 @@ class FilmDetail extends React.Component {
   _toggleFavorite() {
     const action = { type: "TOGGLE_FAVORITE", value: this.state.film }
     this.props.dispatch(action)
+  }
+
+  _displayViewStat() {
+    var statView = "Film vu ? cliquez ici"
+    if (this.props.viewsFilm.findIndex(item => item.id === this.state.film.id) !== -1) {
+      statView = "Cliquez pour retirer ce film de la liste de vos vues"
+    }
+    return (
+        <Text style={styles.button_view}>
+          {statView}
+        </Text>
+    )
   }
 
   _displayFavoriteImage() {
@@ -129,7 +146,7 @@ class FilmDetail extends React.Component {
           <TouchableOpacity
               style={styles.button_view}
               onPress={() => this._toggleView()}>
-              <Text style={styles.button_view}>Film vu ?</Text>
+              {this._displayViewStat()}
           </TouchableOpacity>
         </ScrollView>
       )
