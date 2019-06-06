@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import FilmList from './FilmList';
 import Avatar from './Avatar'
 import { connect } from 'react-redux'
@@ -16,6 +16,7 @@ class Favorites extends React.Component {
                     films={this.props.favoritesFilm}
                     navigation={this.props.navigation}
                     favoritesList={true}
+                    viewList={false}
                 />
             </View>
         )

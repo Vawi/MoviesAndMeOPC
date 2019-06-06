@@ -30,7 +30,7 @@ class Avatar extends React.Component {
             <TouchableOpacity
                 style={styles.touchableOpacity}
                 onPress={this._avatarClicked}>
-                <Image style={styles.avatar} source={this.state.avatar}/>
+                <Image style={styles.avatar} source={this.props.avatar}/>
             </TouchableOpacity>
         )
     }

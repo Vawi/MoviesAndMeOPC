@@ -23,4 +23,4 @@ function toggleView(state = initialState, action) {
     }
   }
   
-  export default toggleFavorite
+  export default toggleView

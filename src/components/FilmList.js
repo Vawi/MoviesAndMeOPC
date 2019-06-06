@@ -21,12 +21,13 @@ class FilmList extends React.Component {
             <FlatList
               style={styles.list}
               data={this.props.films}
-              extraData={this.props.favoritesFilm}
+              extraData={[this.props.favoritesFilm, this.props.viewsFilm]}
               keyExtractor={(item) => item.id.toString()}
               renderItem={({item}) => (
                 <FilmItem
                   film={item}
                   isFilmFavorite={(this.props.favoritesFilm.findIndex(film => film.id === item.id) !== -1) ? true : false}
+                  isViewFilm={(this.props.viewsFilm.findIndex(film => film.id === item.id) !== -1) ? true : false}
                   displayDetailForFilm={this._displayDetailForFilm}
                 />
               )}
@@ -50,7 +51,8 @@ const styles = StyleSheet.create({
   
   const mapStateToProps = state => {
     return {
-      favoritesFilm: state.toggleFavorite.favoritesFilm
+      favoritesFilm: state.toggleFavorite.favoritesFilm,
+      viewsFilm: state.toggleView.viewsFilm
     }
   }
   

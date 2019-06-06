@@ -30,6 +30,7 @@ class FilmDetail extends React.Component {
       isLoading: false
     }
 
+    this._toggleView = this._toggleView.bind(this)
     this._toggleFavorite = this._toggleFavorite.bind(this)
     this._shareFilm = this._shareFilm.bind(this)
   }
@@ -43,6 +44,7 @@ class FilmDetail extends React.Component {
 
   componentDidMount() {
     const favoriteFilmIndex = this.props.favoritesFilm.findIndex(item => item.id === this.props.navigation.state.params.idFilm)
+    const viewFilmIndex = this.props.viewsFilm.findIndex(item => item.id === this.props.navigation.state.params.idFilm)
     if (favoriteFilmIndex !== -1) {
       this.setState({
         film: this.props.favoritesFilm[favoriteFilmIndex]
@@ -66,6 +68,11 @@ class FilmDetail extends React.Component {
         </View>
       )
     }
+  }
+
+  _toggleView() {
+    const action = { type: "TOGGLE_VIEW", value: this.state.film}
+    this.props.dispatch(action)
   }
 
   _toggleFavorite() {
@@ -119,6 +126,11 @@ class FilmDetail extends React.Component {
               return company.name;
             }).join(" / ")}
           </Text>
+          <TouchableOpacity
+              style={styles.button_view}
+              onPress={() => this._toggleView()}>
+              <Text style={styles.button_view}>Film vu ?</Text>
+          </TouchableOpacity>
         </ScrollView>
       )
     }
@@ -223,12 +235,19 @@ const styles = StyleSheet.create({
   share_image: {
     width: 30,
     height: 30
+  }, button_view: {
+    backgroundColor: 'green',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+    marginBottom: 20,
   }
 })
 
 const mapStateToProps = (state) => {
   return {
-    favoritesFilm: state.toggleFavorite.favoritesFilm
+    favoritesFilm: state.toggleFavorite.favoritesFilm,
+    viewsFilm: state.toggleView.viewsFilm
   }
 }
 
