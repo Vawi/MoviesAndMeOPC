@@ -77,6 +77,7 @@ class Search extends React.Component {
           page={this.page}
           totalPages={this.totalPages}
           favoriteList={false}
+          viewList={false}
           />
         {this._displayLoading()}
       </View>

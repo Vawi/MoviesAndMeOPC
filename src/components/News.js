@@ -40,6 +40,7 @@ class News extends React.Component {
                 page={this.page}
                 totalPages={this.totalPages}
                 favoriteList={false}
+                viewList={false}
             />
         )
     }

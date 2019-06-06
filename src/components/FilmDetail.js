@@ -86,9 +86,9 @@ class FilmDetail extends React.Component {
   }
 
   _displayViewStat() {
-    var statView = "Film vu ? cliquez ici"
+    var statView = "Marquer comme vu"
     if (this.props.viewsFilm.findIndex(item => item.id === this.state.film.id) !== -1) {
-      statView = "Cliquez pour retirer ce film de la liste de vos vues"
+      statView = "Deja vu"
     }
     return (
         <Text style={styles.button_view}>
@@ -252,8 +252,10 @@ const styles = StyleSheet.create({
   share_image: {
     width: 30,
     height: 30
-  }, button_view: {
-    backgroundColor: 'green',
+  }, 
+  button_view: {
+    backgroundColor: '#4B0082',
+    color: '#FFFAFA',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20,
