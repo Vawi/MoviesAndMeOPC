@@ -9,13 +9,8 @@ class FilmItem extends React.Component {
     constructor(props) {
       super(props)
       this.state = {
-        
+        longPress: false
       }
-    }
-
-    componentDidMount() {
-      console.log(this.props)
-      console.log(this.props.isListView)
     }
 
     _displayFavoriteImage() {
@@ -29,26 +24,33 @@ class FilmItem extends React.Component {
       }
     }
 
+    _displayDate() {
+      this.setState({
+        longPress: !this.state.longPress
+      })
+    }
+
     _displayViewList() {
       const { film, displayDetailForFilm, isListView } = this.props
       if(isListView === true) {
         return (
           <TouchableOpacity 
-            style={styles.main_container}
-            onPress={() => displayDetailForFilm(film.id)}>
-            <Image
-              style={styles.image_view}
-              source={{uri: getImageFromApi(film.poster_path)}}
-            />
-            <View style={styles.content_container}>
-              <View style={styles.header_container}>
-                {this._displayFavoriteImage()}
-                <Text style={styles.title_text}>{film.title} + {this.props.isListView}</Text>
+            style={styles.main_container_view}
+            onPress={() =>  displayDetailForFilm(film.id)}
+            onLongPress={() => this._displayDate()}>
+              <View style={styles.content_container}>
+                <View style={styles.header_container}>
+                  <Image
+                    style={styles.image_view}
+                    source={{uri: getImageFromApi(film.poster_path)}}
+                  />
+                  {this.state.longPress ? (
+                    <Text style={styles.text_view}>Sorti le {film.release_date}</Text>
+                  ) : (
+                    <Text style={styles.text_view}>{film.title}</Text>
+                  )}
+                </View>
               </View>
-              <View style={styles.date_container}>
-                <Text style={styles.date_text}>Sorti le {film.release_date}</Text>
-              </View>
-            </View>
           </TouchableOpacity>
         )
       } else {
@@ -63,7 +65,7 @@ class FilmItem extends React.Component {
             <View style={styles.content_container}>
               <View style={styles.header_container}>
                 {this._displayFavoriteImage()}
-                <Text style={styles.title_text}>{film.title} + {this.props.isListView}</Text>
+                <Text style={styles.title_text}>{film.title}</Text>
                 <Text style={styles.vote_text}>{film.vote_average}</Text>
               </View>
               <View style={styles.description_container}>
@@ -140,9 +142,19 @@ class FilmItem extends React.Component {
       height: 25,
       marginRight: 5
     }, image_view: {
-      height: 30,
-      width: 30,
-      borderRadius: 30,
+      width: 60,
+      height: 60,
+      borderRadius: 60/2,
+    }, text_view : {
+      marginLeft: 15,
+      marginTop: 15,
+      fontWeight: 'bold',
+      color: 'gray',
+      fontSize: 15,
+    }, main_container_view: {
+      marginTop: 20,
+      height: 100,
+      flexDirection: 'row'
     }
   })
   
