@@ -12,8 +12,8 @@ class Views extends React.Component {
                 <FilmList
                     films={this.props.viewsFilm}
                     navigation={this.props.navigation}
-                    viewsList={true}
-                    favoritesList={false}
+                    viewList={true}
+                    favoriteList={false}
                 />
             </View>
         )

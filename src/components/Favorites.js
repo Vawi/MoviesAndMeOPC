@@ -15,7 +15,7 @@ class Favorites extends React.Component {
                 <FilmList
                     films={this.props.favoritesFilm}
                     navigation={this.props.navigation}
-                    favoritesList={true}
+                    favoriteList={true}
                     viewList={false}
                 />
             </View>

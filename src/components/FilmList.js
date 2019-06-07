@@ -2,7 +2,6 @@ import React from 'react'
 import { StyleSheet, FlatList } from 'react-native'
 import FilmItem from './FilmItem'
 import { connect } from 'react-redux'
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 class FilmList extends React.Component {
 
@@ -18,6 +17,8 @@ class FilmList extends React.Component {
     }
 
     render() {
+        console.log(this.props.viewList)
+        console.log(this.props)
         return (
             <FlatList
               style={styles.list}
@@ -30,6 +31,7 @@ class FilmList extends React.Component {
                   isFilmFavorite={(this.props.favoritesFilm.findIndex(film => film.id === item.id) !== -1) ? true : false}
                   isViewFilm={(this.props.viewsFilm.findIndex(film => film.id === item.id) !== -1) ? true : false}
                   displayDetailForFilm={this._displayDetailForFilm}
+                  isListView = {this.props.viewList}
                 />
               )}
               onEndReachedThreshold={0.5}

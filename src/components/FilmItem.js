@@ -13,6 +13,11 @@ class FilmItem extends React.Component {
       }
     }
 
+    componentDidMount() {
+      console.log(this.props)
+      console.log(this.props.isListView)
+    }
+
     _displayFavoriteImage() {
       if(this.props.isFilmFavorite) {
         return (
@@ -24,10 +29,30 @@ class FilmItem extends React.Component {
       }
     }
 
-    render() {
-        const { film, displayDetailForFilm } = this.props
+    _displayViewList() {
+      const { film, displayDetailForFilm, isListView } = this.props
+      if(isListView === true) {
         return (
-          <FadeIn>
+          <TouchableOpacity 
+            style={styles.main_container}
+            onPress={() => displayDetailForFilm(film.id)}>
+            <Image
+              style={styles.image_view}
+              source={{uri: getImageFromApi(film.poster_path)}}
+            />
+            <View style={styles.content_container}>
+              <View style={styles.header_container}>
+                {this._displayFavoriteImage()}
+                <Text style={styles.title_text}>{film.title} + {this.props.isListView}</Text>
+              </View>
+              <View style={styles.date_container}>
+                <Text style={styles.date_text}>Sorti le {film.release_date}</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        )
+      } else {
+        return (
           <TouchableOpacity 
             style={styles.main_container}
             onPress={() => displayDetailForFilm(film.id)}>
@@ -38,7 +63,7 @@ class FilmItem extends React.Component {
             <View style={styles.content_container}>
               <View style={styles.header_container}>
                 {this._displayFavoriteImage()}
-                <Text style={styles.title_text}>{film.title}</Text>
+                <Text style={styles.title_text}>{film.title} + {this.props.isListView}</Text>
                 <Text style={styles.vote_text}>{film.vote_average}</Text>
               </View>
               <View style={styles.description_container}>
@@ -46,10 +71,21 @@ class FilmItem extends React.Component {
                 {/* La propriété numberOfLines permet de couper un texte si celui-ci est trop long, il suffit de définir un nombre maximum de ligne */}
               </View>
               <View style={styles.date_container}>
-                <Text style={styles.date_text}>Sorti le {film.release_date}0</Text>
+                <Text style={styles.date_text}>Sorti le {film.release_date}</Text>
               </View>
             </View>
           </TouchableOpacity>
+        )
+      }
+    }
+
+
+    render() {
+      console.log(this.props)
+      console.log(this.props.isListView)
+        return (
+          <FadeIn>
+            {this._displayViewList()}
           </FadeIn>
         )
       }
@@ -103,6 +139,10 @@ class FilmItem extends React.Component {
       width: 25,
       height: 25,
       marginRight: 5
+    }, image_view: {
+      height: 30,
+      width: 30,
+      borderRadius: 30,
     }
   })
   
